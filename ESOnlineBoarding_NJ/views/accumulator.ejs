@@ -1,0 +1,77 @@
+<%-include("header.ejs")%>
+<div class="container">
+  <p>
+    <button
+      class="btn btn-success mt-5"
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapseExample"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      Add New Accumulator
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <form action="/accumulators" method="POST">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Name of the Accumulator</label>
+        <input
+          style="width: 40%"
+          type="text"
+          name="name"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <h1 class="text-center"><strong> Your Active Accumulators</strong></h1>
+  <div class="row">
+    <%if(user.accumulators.length>0){user.accumulators.forEach(function(accumulator)
+    {%> <%var x; if(accumulator.payment)x="Completed";else x="Pending";%>
+    <div class="col-md-3 m-4 card bg-dark">
+      <div class="card-body">
+        <h5 class="card-title" style="text-align: center">
+          <%=accumulator.name%>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Status : <%=accumulator.status%>
+        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Odds : <%=accumulator.odds.toFixed(2)%>
+        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Amount : £ <%=accumulator.amount%>
+        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">Payment Status : <%=x%></h6>
+        <a href="/accumulators/<%=accumulator._id%>"
+          ><button
+            type="button"
+            class="btn mt-3"
+            style="margin-left: 25%; background: #000; color: white"
+          >
+            View
+          </button></a
+        >
+        <%if(accumulator.payment==false) {%>
+        <form
+          action="/accumulators/<%=accumulator._id%>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button
+            type="button submit"
+            class="btn mt-3"
+            style="background: #000; color: white"
+          >
+            Delete
+          </button>
+        </form>
+        <%}%>
+      </div>
+    </div>
+    <%})}%>
+  </div>
+</div>

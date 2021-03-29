@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<style>.nav-link{font-weight:700} body{background:#252F5A;color:white} #navbarDropdown{color:white}
+</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "icon" href ="https://i.ibb.co/z8dxdD5/favicon.png" 
+        type = "image/x-icon"> 
+       
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<title>BetVal - No. 1 Sports Betting Site</title>
+		<script src="https://kit.fontawesome.com/20192c7fbc.js" crossorigin="anonymous"></script>
+	</head>
+	<body>
+<nav class="navbar navbar-expand-lg navbar-dark" style="    background-color:#000033">
+<div class="container-fluid">
+	<a class="navbar-brand" href="/"><img style="max-height:34px; max-width:200px" src="https://i.ibb.co/4TdPmFg/logo.png" class="d-inline-block align-top" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left:20%">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active p-2">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+		<%if(currentUser){%>
+      <li class="nav-item active p-2">
+        <a class="nav-link" href="/mybets">My Bets</a>
+      </li><%}%>
+            <li class="nav-item active p-2">
+        <a class="nav-link" href="/accumulators" tabindex="-1" aria-disabled="true">Accumulator</a>
+      </li>
+
+            <li class="nav-item active p-2">
+        <a class="nav-link" href="/specials" tabindex="-1" aria-disabled="true">Specials</a>
+      </li>
+            <li class="nav-item active p-2">
+        <a class="nav-link" href="/football" tabindex="-1" aria-disabled="true">Football</a>
+      </li>
+	
+    </ul>
+	  <ul class="navbar-nav ml-auto">
+		  <%if(currentUser&&(currentUser.isAdmin||currentUser.isSubAdmin)){%><li class="nav-item active p-2" >
+        <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Admin Panel</a>
+	  </li><%}%>
+		  <%if(currentUser){%><li class="nav-item active p-2" >
+        <a class="nav-link" href="/logout" tabindex="-1" aria-disabled="true">Sign Out</a>
+		
+		  <li class="nav-item dropdown p-2">
+       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-wallet"></i> £<%=(user.balance).toFixed(2)%></a>
+			  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/deposit">Deposit Money</a>
+				  <a class="dropdown-item" href="/withdraw">Withdraw Money</a>
+			  
+	  </div>
+			  </li>
+		  
+       
+        
+          <%}%>
+		  <%if(!currentUser){%><li class="nav-item active p-2" >
+        <a class="nav-link" href="/login" tabindex="-1" aria-disabled="true">Sign In</a>
+		  <li class="nav-item active p-2" >
+        <a class="nav-link" href="/register" tabindex="-1" aria-disabled="true">Register</a>
+	  </li><%}%>
+	
+	
+	  </ul>
+    </div></div>
+	</nav>
+		<div class ="container mt-5"style="color:white">
+			<%if(success&&success.length>0){%><div class="alert alert-success alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+
+			<%=success%></div><%}%>
+			<%if(error&&error.length>0){%><div class="alert alert-danger alert-dismissible " role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+<%=error%>
+			<%}%></div>

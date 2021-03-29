@@ -1,0 +1,30 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("users").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Create a new User
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/users" method = "POST" >
+		<input class = "form-control form-group" type="text" name ="fname" placeholder="User First Name" required>
+		<input class = "form-control form-group" type="text" name ="lname" placeholder="User Last Name" required>
+		
+		<input class = "form-control form-group" type="email" name ="username" placeholder="User Email" required>
+		<input class = "form-control form-group" type="Number" name ="balance" placeholder="User's Wallet Balance (£)" min="0" step="0.01">
+	<input class = "form-control form-group" type="text" name = "isAdmin" placeholder = "Admin Status - Yes for Admin Access else No">
+		
+	
+		 <button class ="btn btn-primary btn-block"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>
+<%- include("adminfooter.ejs")%>

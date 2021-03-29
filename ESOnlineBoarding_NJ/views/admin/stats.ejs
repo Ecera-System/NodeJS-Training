@@ -1,0 +1,76 @@
+<%-include("adminheader.ejs")%>
+<script>document.getElementById("stats").classList.add("active")</script>
+ <%var liveBets=0,settledBets=0,tot=0,dep=0,wit=0,currM=0,arr=[];
+bets.forEach(function(bet)
+			{
+	if(bet.result==-1 &&bet.amount!=0)
+		liveBets++;
+	if(bet.result!=1)
+		settledBets++;
+});
+users.forEach(function(user)
+			 {
+	tot+=user.balance;
+	user.bets.forEach(function(bet)
+					 {
+		if(bet.result==-1)
+		arr.push({user:user.username,amount:bet.amount,t1_name:bet.t1_name,t2_name:bet.t2_name,betOn:bet.betOn,desc:bet.desc});
+	})
+})
+matches.forEach(function(match)
+			   {
+	if(match.winner==0)
+		currM++;
+})
+deposists.forEach(function(deposit)
+				{
+	if(deposit.success)
+	dep+=deposit.amount;
+})
+withdrawals.forEach(function(withdrawal)
+			   {
+	wit+=withdrawal.amount;	
+})
+%><article class="content dashboard-page">
+	 <h1 class="text-center">
+		 Site Statistics
+	 </h1>
+	 <h5 style="margin-left:30%">
+		 
+		 <li style="padding:10px"> Total Number Of Live Bets:- <%=liveBets%></li>
+		 <li style="padding:10px"> Total Number Of Settled Bets:- <%=settledBets%></li>
+		 <li style="padding:10px"> Total Amount in User wallets:- GBP <%=tot.toFixed(2)%></li>
+		 <li style="padding:10px"> Total Amount Deposited - GBP <%=dep%></li>
+		 <li style="padding:10px">Total Amount Withdrawn - GBP <%=wit%></li>
+		 <li style="padding:10px"> Number of Current Matches - <%=currM%></li></h5>
+	 <hr style="boder:1px solid grey">
+	 <h3>
+		 Live Bets Placed
+	 </h3>
+	<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Bet Placed By</th>
+      <th scope="col">Bet Amount</th>
+      <th scope="col">Match</th>
+		<th scope="col">Bet Placed On</th>
+    </tr>
+  </thead>
+	<% var i=1;arr.forEach(function(data)
+				   {%>
+		<tr>
+		<td><%=i%></td>
+		<td><%=data.user%></td>
+		<td>£<%=data.amount%></td>
+		<td><%if(data.t1_name){%><%=data.t1_name%> vs <%=data.t2_name%><%}else{%><%=data.desc%><%}%></td>
+	<td scope="col"><%if(data.betOn==1){%><%=data.t1_name%><%}else if(data.betOn==2){%><%=data.t2_name%><%}else{%>Draw<%}%></td><%i++;%>
+	</tr>
+	<%})%>
+  <tbody>
+    
+  </tbody>
+</table>
+ 
+</article>
+<%-include("adminfooter.ejs")%>

@@ -1,0 +1,32 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("specials").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Update Special Result
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6 text-center mt-3">
+	<form action ="/admin/specials/<%=special._id%>?_method=PUT" method = "POST" >
+		<b>Did This Bet Succeed? </b><select name="winner">
+		<option value="1">YES</option>
+		<option value="2">NO</option>
+	
+			
+		</select>	 <button class ="btn btn-primary btn-block mt-2" onclick="return confirm('Are you sure you want to proceed? Results once updated cannot be changed');"style="margin-left:38%;width:20%">
+			 Submit
+		</button>
+</form>
+		<!-- <form action="/admin/matches/cancel/" method="POST">
+			<button class ="btn btn-danger btn-block mt-2" onclick="return confirm('Are you sure you want to proceed? Results once updated cannot be changed');"style="margin-left:38%;width:20%">
+			 Cancel
+		</button>
+		</form>
+ -->
+	</div></div>
+</div>
+</article>
+<%- include("adminfooter.ejs")%>

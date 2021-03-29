@@ -1,0 +1,103 @@
+<%function ACM(match)
+{ var flag =0;
+  accumulator.matches.forEach(function(mat)
+						 { var x= String(mat._id);
+						  var y= String(match._id);
+						  console.log(mat);
+	  if(x==y)
+		 { flag=1;}
+  });	if(flag)
+	  return false;
+	return true;
+}%><%-include ("header.ejs")%>
+<div class="row mt-5">
+	<div class="col-md-3 ml-3">
+		<h1 style="color:yellow"><strong> Accumulator Odds :- <%=accumulator.odds.toFixed(2)%></strong></h1>
+		<h3>
+			Bets in <%=accumulator.name%>
+		</h3>
+
+		<table class="table table-dark table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Match</th>
+
+					<th scope="col">Bet Placed On</th>
+
+
+				</tr>
+			</thead>
+			<%if(accumulator.bets.length>0){accumulator.bets.forEach(function(bet)
+						   {%>
+			<tr>
+				<td><%=bet.t1_name%> vs <%=bet.t2_name%></td>
+				<td scope="col"><%if(bet.betOn==1){%><%=bet.t1_name%><%}else if(bet.betOn==2){%><%=bet.t2_name%><%}else{%>Draw<%}%></td>
+						<td><form style="display:inline" action="/accumulators/<%=accumulator._id%>/bet/<%=bet._id%>?_method=DELETE"
+					method="POST">
+
+					<button
+						onclick="return confirm('Are you sure you want to proceed? You will not be able to place a bet on this match inside this accumulator again');">
+						<i class="fas fa-trash-alt"></i>
+					</button></form>
+				</td>
+			</tr>
+			<%})}%>
+		</table>
+		<form action="/accumulators/<%=accumulator._id%>/payment" method="POST">
+			<input type="Number" name="amount" max="<%=user.balance%>" placeholder="Enter the amount in GBP"
+				style="width:100%">
+			<br><button class="btn mt-3 btn-primary">
+				Proceed to Payment
+			</button>
+		</form>
+		<a href="/deposit"> <em>Add Money To Your Wallet</em></a><br>
+
+	</div>
+	<div class="col-md-8">
+		<h3 class="text-center">
+			Add Upto 12 Bets To Your Accumulator
+		</h3>
+		<table class="table table-dark table-striped mt-5">
+			<thead>
+				<tr>
+					<th scope="col">Match</th>
+					<th scope="col">Odds - Team 1</th>
+					<th scope="col">Odds - Draw</th>
+					<th scope="col">Odds - Team 2</th>
+
+					<th scope="col">Start Time</th>
+
+				</tr>
+			</thead>
+			<%matches.forEach(function(match)
+				   { if(ACM(match)){console.log(ACM(match));var date=new Date();date.setMinutes(date.getMinutes()+3);if(match.time>date){%>
+			<tr>
+
+
+				<td><%=match.t1_name%> vs <%=match.t2_name%></td>
+
+				<td><%=match.t1_odds.toFixed(2)%><form style="display:inline"
+						action="/accumulator/<%=accumulator._id%>/bet/<%=match._id%>/1" method="POST"><button>
+							<i class="fas fa-plus"></i>
+						</button></form>
+				</td>
+				<td><%=match.d_odds.toFixed(2)%><form style="display:inline"
+						action="/accumulator/<%=accumulator._id%>/bet/<%=match._id%>/3" method="POST"><button>
+							<i class="fas fa-plus"></i>
+						</button></form>
+				</td>
+				<td><%=match.t2_odds.toFixed(2)%><form style="display:inline"
+						action="/accumulator/<%=accumulator._id%>/bet/<%=match._id%>/2" method="POST"><button>
+							<i class="fas fa-plus"></i>
+						</button></form>
+				</td>
+
+				<td><%if(match.time){%><%=match.time.toString().substring(0,match.time.toString().length-41)%><%}%></td>
+			
+
+</tr>
+			<%}}})%>
+		</table>
+
+	</div>
+</div>

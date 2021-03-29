@@ -1,0 +1,59 @@
+<%- include("adminheader.ejs")%>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
+<script type="text/javascript" src="https://jonthornton.github.io/jquery-timepicker/lib/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/lib/bootstrap-datepicker.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#time').timepicker({
+        timeFormat: 'h:i A',
+        step: 15, 
+    });
+	 $("#date").datepicker({
+	 dateFormat: "yy-mm-dd",
+	 changeMonth: true,
+        changeYear: true});
+});
+
+   
+</script>
+<script>document.getElementById("bets").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Edit a Bet
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/matches/edit/<%=match._id%>?_method=PUT" method = "POST" >
+		<input class = "form-control form-group" type="text" name ="match[t1_name]" value="<%=match.t1_name%>"required>
+		<input class = "form-control form-group" type="text" name ="match[t2_name]" value="<%=match.t2_name%>" required>
+		Odds for Team 1 win:-<input class = "form-control form-group" type="text" name ="match[t1_odds]" value="<%=match.t1_odds%>" required>
+		Odds for draw:- <input class = "form-control form-group" type="text" name ="match[d_odds]" value="<%=match.d_odds%> " required>
+		Odds for Team 2 win:-<input class = "form-control form-group" type="text" name ="match[t2_odds]" value="<%=match.t2_odds%>" required>
+		<%var x= new Date(match.time);var y=x.toString();%>
+		<input class = "form-control form-group" type="text" name ="date" id="date" placeholder="KickOff Date" value="<%=y.substring(0,15)%>" required>
+		<input class = "form-control form-group" type="text" name ="time" id="time" placeholder="KickOff Time" value="<%=y.substring(16,21)%>" required>
+		Maximum Bet For This Match(GBP, leave it as -1 for no restrictions)<input class = "form-control form-group" type="text" name ="match[maxbet]"  placeholder="" value="<%=match.maxbet%>" >
+		
+		<br>
+		Home Page Display:-  <select name="display">
+		 <option value="false">No</option>
+			<option value="true">Yes</option>
+		
+		</select><br>
+		 <button class ="btn btn-primary mt-3"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>

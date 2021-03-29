@@ -1,0 +1,69 @@
+<%-include("adminheader.ejs")%>		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
+<script type="text/javascript" src="https://jonthornton.github.io/jquery-timepicker/lib/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/lib/bootstrap-datepicker.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#time').timepicker({
+        timeFormat: 'h:i A',
+        step: 15, 
+    });
+	 $("#date").datepicker({
+	 dateFormat: "yy-mm-dd",
+	 changeMonth: true,
+        changeYear: true});
+});
+
+   
+</script>
+
+<script>document.getElementById("bets").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Create a new Bet
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/matches" method = "POST" >
+		<input class = "form-control form-group" type="text" name ="match[t1_name]" placeholder="Team 1 " required>
+		<input class = "form-control form-group" type="text" name ="match[t2_name]" placeholder="Team 2 " required>
+		<input class = "form-control form-group" type="text" name ="match[t1_odds]" placeholder="Odds For Team 1 Win " required>
+		<input class = "form-control form-group" type="text" name ="match[d_odds]" placeholder="Odds for Draw " required>
+		<input class = "form-control form-group" type="text" name ="match[t2_odds]" placeholder="Odds for Team 2 Win " required>
+			Maximum Bet For This Match(GBP, leave it as -1 for no restrictions)<input class = "form-control form-group" type="text" name ="match[maxbet]"   value="100" >
+		
+		<input class = "form-control form-group" type="text" name ="date" id="date" placeholder="KickOff Date" required>
+	
+		<input class = "form-control form-group" type="text" name ="time" id="time"placeholder="KickOff Time " required>
+				Select a Category:-  <select name="league">
+			<%leagues.forEach(function(category)
+								{%>
+				<option><%=category.name%></option>
+			<%})%>
+		</select>
+		
+		
+	<br><br>
+		
+		Home Page Display:-  <select name="display">
+		<option value="false">No</option>
+			<option value="true">Yes</option>
+		
+		</select>
+		<br>
+		 <button class ="btn btn-primary mt-3"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>

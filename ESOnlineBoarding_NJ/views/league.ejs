@@ -1,0 +1,52 @@
+<%-include("header.ejs")%>
+<style>
+	span {
+		color: yellow;
+		font-weight: 700;
+	}
+</style>
+<div class="container">
+	<h1 style="font-family:Open Sans" class="text-center mt-5">
+		Matches in the <%=league.name%>
+	</h1>
+
+</div>
+<hr style="border:1px solid #FFDF00">
+<table class="table table-dark table-striped mt-5">
+	<thead>
+		<tr>
+			<th scope="col">Match</th>
+			<th scope="col">Odds - Team 1</th>
+			<th scope="col">Odds - Draw</th>
+			<th scope="col">Odds - Team 2</th>
+
+			<th scope="col">Start Time</th>
+
+			<th scope="col">Status</th>
+			<th scope="col">Winner</th>
+
+
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<% var i=1;league.matches.forEach(function(match)
+				   {%>
+	<tr>
+		<%var d=new Date();var st;d.setMinutes(d.getMinutes()+3);if(match.time<d&&match.status=="NS"){st="In Play"}else{st=match.status}%>
+
+		<td><%=match.t1_name%> vs <%=match.t2_name%></td>
+
+		<td><%=match.t1_odds.toFixed(2)%></td>
+		<td><%=match.d_odds.toFixed(2)%></td>
+		<td><%=match.t2_odds.toFixed(2)%></td>
+
+		<td><%if(match.time){%><%=match.time.toString().substring(0,match.time.toString().length-41)%><%}%></td>
+			<td><%=st%></td>
+		<td><%if(match.winner==0){%>Not
+			Declared<%}else if(match.winner==1){%><span><%=match.t1_name%></span><%}else if(match.winner==2){%><span><%=match.t2_name%></span><%}else if(match.winner==3){%><span>Draw</span><%}else{%><span>Void</span><%}%>
+			</td>
+
+<td><%var date=new Date();date.setMinutes(date.getMinutes()+3);if(match.time>date){%><a
+				href="/matches/<%=match._id%>/bet"><button class="btn btn-primary btn-sm">Bet Now
+				</button></a><%}%></td>
+<%i++;})%>

@@ -1,0 +1,52 @@
+<%- include("adminheader.ejs")%>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
+<script type="text/javascript" src="https://jonthornton.github.io/jquery-timepicker/lib/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/lib/bootstrap-datepicker.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#time').timepicker({
+        timeFormat: 'h:i A',
+        step: 15, 
+    });
+	 $("#date").datepicker({
+	 dateFormat: "yy-mm-dd",
+	 changeMonth: true,
+        changeYear: true});
+});
+
+   
+</script>
+<script>document.getElementById("specials").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Edit a Special
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/specials/edit/<%=special._id%>?_method=PUT" method = "POST" >
+		<input class = "form-control form-group" type="text" name ="special[desc]" value="<%=special.desc%>"required>
+		Odds:-<input class = "form-control form-group" type="text" name ="special[t1_odds]" value="<%=special.t1_odds%>" required>
+		
+		<%var x= new Date(special.time);var y=x.toString();%>
+		<input class = "form-control form-group" type="text" name ="date" id="date" placeholder="KickOff Date" value="<%=y.substring(0,15)%>" required>
+		<input class = "form-control form-group" type="text" name ="time" id="time" placeholder="KickOff Time" value="<%=y.substring(16,21)%>" required>
+		Maximum Bet For This Special(GBP, leave it as -1 for no restrictions)<input class = "form-control form-group" type="text" name ="special[maxbet]"  placeholder="" value="<%=special.maxbet%>" >
+		
+		
+		 <button class ="btn btn-primary mt-3"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>

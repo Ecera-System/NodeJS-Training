@@ -1,0 +1,30 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("leagues").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Create a new Competition
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/leagues" method = "POST" >
+		<input class = "form-control form-group" type="text" name ="name" placeholder="Competition Name" required>
+		<input class = "form-control form-group" type="text" name ="logo" placeholder="Enter Competition Logo URL">
+		Select a Category:-  <select name="category">
+			<%categories.forEach(function(category)
+								{%>
+				<option><%=category.name%></option>
+			<%})%>
+		</select>
+			 <button class ="btn btn-primary btn-block mt-3"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>
+<%- include("adminfooter.ejs")%>

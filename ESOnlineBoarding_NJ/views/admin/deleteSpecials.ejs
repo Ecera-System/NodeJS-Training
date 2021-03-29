@@ -1,0 +1,44 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("specials").classList.add("active")</script>
+ <article class="content dashboard-page">
+	 <form action="/admin/specials?_method=DELETE" method="POST">
+		 <button type="submit" onclick="return confirm('Are you sure you want to delete the selected specials?Changes cannot be undone');"class="pull-right btn btn-danger">
+			 Delete Selected
+		 </button>
+	 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Description</th>
+      <th scope="col">Odds</th>
+      <!-- <th scope="col">Odds - Team 1</th>
+		<th scope="col">Odds - Draw</th>
+	<th scope="col">Odds - Team 2</th> -->
+	
+	<th scope="col">Status</th>
+		<!-- <th scope="col">Winner</th> -->
+	
+    </tr>
+  </thead>
+	<% var i=1;matches.forEach(function(special)
+				   {%>
+		<tr>
+		<td><input type="checkbox" name="del[]" value="<%=special._id%>"></td>
+		<td><%=special.desc%></td>
+			
+			<td><%=special.t1_odds%></td>
+		
+		
+			<td><%var x; if(special.winner==0){x="Ongoing"}else if(special.winner==1){x="Won"}else x="Lost"%><%=x%></td>
+			
+			
+			
+	</tr>
+	<%})%>
+  <tbody>
+    
+  </tbody>
+		 </table></form>
+</article>
+<%- include("adminfooter.ejs")%>

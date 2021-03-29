@@ -1,0 +1,316 @@
+<%- include("adminheader.ejs")%>
+<%var dep=0,wit=0;
+
+deposists.forEach(function(deposit)
+				{
+	if(deposit.success)
+	dep+=deposit.amount;
+})
+withdrawals.forEach(function(withdrawal)
+			   {
+	wit+=withdrawal.amount;	
+})
+%>
+<%win_bets+=(wonacm-acm_w);lost_bets+=(lostacm-acm_l)%>
+  <style>
+    .card {
+      border-radius: 20px
+    }
+  </style>
+  <script>
+
+
+    document.getElementById("dashboard").classList.add("active")
+
+    //=================================   Load google charts     ============================
+
+
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    //========================= Draw the chart and set the chart values=======================
+    function drawChart() {
+      let wins =<%=win_bets%>;
+      let loss =<%=lost_bets%>;
+      let matches =<%=matches%>;
+      let compitions =<%=leagues%>;
+      let data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Number of Bets Won By Users:',wins ],
+        ['Number of Bets Lost By Users:', loss],
+        ['Number of Matches', matches],
+        ['Number of Competitions:', compitions],
+      ]);
+
+      // Optional; add a title and set the width and height of the chart
+
+
+      let options = {backgroundColor: { fill: "#F4F4F4" }, 'title': 'MY COUNTS', 'width': 550, 'height': 400 };
+
+      // Display the chart inside the <div> element with id="piechart"
+
+
+
+      let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+       let users = <%= users %>;
+       let acc = <%= accumulators %>; 
+       let dep= <%= dep %>;
+       let wit= <%= wit %>;
+        let data = new google.visualization.arrayToDataTable([
+          ['Move', 'Counts'],
+          ["number of Users", users],
+          ["Number of Accumulators", acc],
+          ["Deposits", dep],
+          ["Withdrawals", wit]
+        ]);
+
+        let options = {
+          backgroundColor:"#F4F4F4",
+          width: 500,
+          legend: { position: 'none' },
+          chart: {
+            title: 'MY COUNT BAR',
+            subtitle: '' },
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Count By Numbers'} // Top x-axis.
+            }
+          },
+
+          bar: { groupWidth: "50%",gap:"5%" }
+        };
+
+        let chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      };
+
+  </script>
+
+
+
+  <article class="content dashboard-page">
+    <div class="container mt-5" style="color:white">
+      <%if(success&&success.length>0){%><div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <%=success%>
+        </div>
+        <%}%>
+          <%if(error&&error.length>0){%><div class="alert alert-danger alert-dismissible " role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <%=error%>
+                <%}%>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-xs-12 col-lg-5">
+                <div class="">
+                  <div id="piechart"></div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-xs-12 col-lg-5">
+                  <div class="bar-container">
+                    <div id="top_x_div" style="max-width: 500px; height: 375px;"></div>
+                  </div>
+              </div>
+
+            </div>
+
+            <div class="container" style="color:#fff">
+              <div class="row">
+
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Active Users: <%=users%>
+                          </div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/users" class="btn btn-outline-primary btn-sm">Go to Users</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Accumulators: <%=accumulators%>
+                          </div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/accumulators" class="btn btn-outline-primary btn-sm">Go to Accumulators</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Competitions: <%=leagues%>
+                          </div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/leagues" class="btn btn-outline-primary btn-sm">Go to Competitions</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Matches: <%=matches%>
+                          </div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/matches" class="btn btn-outline-primary btn-sm">Go to Matches</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                              Number of Bets Won By Users: <%=win_bets%>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold ">
+                              <a href="/admin/matches/addMatch" class="btn btn-outline-primary btn-sm">Add a New Bet</a>
+                            </div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Number of Bets Lost By Users: <%=lost_bets%>
+                          </div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/matches/addMatch" class="btn btn-outline-primary btn-sm">Add a New Bet</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Deposits:<%=dep%></div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/deposits" class="btn btn-outline-primary btn-sm">Total deposits</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Withdrawals:<%=wit%></div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/withdrawals" class="btn btn-outline-primary btn-sm">Total withdrawals</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 ml-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Specials</div>
+                          <div class="h5 mb-0 font-weight-bold ">
+                            <a href="/admin/specials" class="btn btn-outline-primary btn-sm">Go To Site Specials</a>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+  </article>
+
+
+  <%- include("adminfooter.ejs")%>

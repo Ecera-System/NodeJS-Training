@@ -1,0 +1,30 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("wallet").classList.add("active")</script>
+ <article class="content dashboard-page">
+	 <h1 class="text-center">Deposits Made</h1>
+	
+		 <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col">Amount deposited in GBP</th>
+      <th scope="col">Status</th>
+	<th scope="col">Action</th>
+    </tr>
+  </thead>
+			 <%deposits.forEach(function(deposit)
+								  {%>
+				 <tr>
+      <td scope="col"><%=deposit.username%></td>
+      <td scope="col"><%=deposit.amount%></td>
+      <td scope="col"><%if(deposit.success){%>Success<%}else{%>Failed<%}%></td>
+	<td scope="col"><form style="display:inline" action ="/admin/deposits/<%=deposit._id%>?_method=DELETE" method="POST">
+   <button class="btn btn-danger btn-xs"onclick="return confirm('Are you sure you want to delete this item?');">
+				Delete
+			</button>
+		</form> </td>
+    </tr>
+			<% })%>
+	 </table>
+	 
+</article>

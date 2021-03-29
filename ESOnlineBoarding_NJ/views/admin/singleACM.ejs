@@ -1,0 +1,53 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("accumulators").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class="container">
+	<h3 class="text-center mt-5">
+		Bets in <%=accumulator.name%>
+	</h3>
+	<p class="float-right">
+		
+		Accumulator Returns : <span style="color:green;font-weight:bold"> £ <%=(accumulator.amount * accumulator.odds).toFixed(2)%></span>
+		
+	<br>
+		
+		
+		Status : <%if(accumulator.status=="Ongoing"){%><%=accumulator.status%>
+		<%}%>
+		<%if(accumulator.status=="Lost"){%><span style="color:red;font-weight:bold"><%=accumulator.status%></span>
+		<%}%>
+		<%if(accumulator.status=="Won"){%><span style="color:green;font-weight:bold"><%=accumulator.status%></span>
+		<%}%>
+	
+	<br>
+	
+		Amount : £ <%=accumulator.amount%>
+	
+	<br>
+	
+		Odds : <%=accumulator.odds.toFixed(2)%>
+	
+		<br></p>
+	<table class="table " >
+  <thead>
+    <tr>
+		<th scope="col">Match</th>
+		<th scope="col">Bet Placed on Team</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+	<%accumulator.bets.forEach(function(bet)
+				   {%><tr>
+		 <th scope="col"><%=bet.t1_name%> Vs <%=bet.t2_name%></th><th scope="col"><%if(bet.betOn==1){%><%=bet.t1_name%><%}else if(bet.betOn==2){%><%=bet.t2_name%><%}else{%>Draw<%}%></th>
+	<%if(bet.result==-1){%>	<th scope ="col">%>Ongoing</th>
+		<%}%>
+		<%if(bet.result==0){%>	<th scope ="col" style="color:red">%>Lost</th>
+		<%}%>
+		<%if(bet.result==1){%>	<th scope ="col" style="color:green">%>Won</th> 
+		<%}%></tr><%})%>
+		
+	</table>
+	
+	 </div></article>
+<%- include("adminfooter.ejs")%>
+<!--End of Tawk.to Script-->

@@ -1,0 +1,24 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("categories").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Edit Category
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/categories/<%=category._id%>?_method=PUT" method = "POST" >
+		<input class = "form-control form-group" type="text" value="<%=category.name%>" name ="category[name]" placeholder="Category Name" required>
+		<input class = "form-control form-group" type="text" value="<%=category.logo%>"name ="category[logo]" placeholder="Enter Category Logo URL">
+			 <button class ="btn btn-primary btn-block"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>
+<%- include("adminfooter.ejs")%>

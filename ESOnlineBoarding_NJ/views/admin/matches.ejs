@@ -1,0 +1,57 @@
+<%- include("adminheader.ejs")%>
+<script>
+	document.getElementById("bets").classList.add("active")
+</script>
+<article class="content dashboard-page">
+	<a href="/admin/matches/addMatch"> <button class="btn btn-success" style="color:white">
+			Create New Bet
+		</button></a>
+	<a href="/admin/matches/delete"><button class="btn btn-danger float-right">
+			Delete Matches
+		</button></a>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">S.No.</th>
+				<th scope="col">Team 1</th>
+				<th scope="col">Team 2</th>
+				<th scope="col">Odds - Team 1</th>
+				<th scope="col">Odds - Draw</th>
+				<th scope="col">Odds - Team 2</th>
+
+				<th scope="col">Status</th>
+				<th scope="col">Winner</th>
+
+
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<% var i=1;matches.forEach(function(match)
+				   {%>
+		<tr>
+			<td><%=i%></td>
+			<td><%=match.t1_name%></td>
+			<td><%=match.t2_name%></td>
+			<td><%=match.t1_odds%></td>
+
+			<td><%=match.d_odds%></td>
+			<td><%=match.t2_odds%></td>
+
+			<td><%=match.status%></td>
+			<td><%if(match.winner==0){%>Not Declared<%}else if(match.winner==1){%>Team
+				1<%}else if(match.winner==2){%>Team 2<%}else if(match.winner==3){%>Draw<%}else{%>Void<%}%>
+			</td>
+			
+			<td><a href="/admin/matches/edit/<%=match._id%>" ><button class="btn btn-primary btn-sm">
+					Edit Match
+				</button></a><a href="/admin/matches/<%=match._id%>/edit"><button class="btn btn-warning btn-sm">
+						Update Result
+					</button></a> </td><%i++;%>
+		</tr>
+		<%})%>
+		<tbody>
+
+		</tbody>
+	</table>
+</article>
+<%- include("adminfooter.ejs")%>

@@ -1,0 +1,44 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("accumulators").classList.add("active")</script>
+ <article class="content dashboard-page">
+	  <form action="/admin/accumulators/update" method="POST">
+		 <button type="submit" onclick="return confirm('Are you sure you want to remove the selected accumulators from admin screen?Changes cannot be undone');"class="pull-right btn btn-danger">
+			 Remove Selected From Admin Screen
+		 </button><h3>
+		 Accumulators
+	 </h3>
+<table class="table table-striped">
+  <thead>
+    <tr><th scope="col"></th>
+		<th scope="col">Username</th>
+		<th scope="col">Accumulator Name</th>
+      <th scope="col">Number of Bets</th>
+	<th scope="col">Total Odds</th>
+	<th scope="col"> Amount</th>
+    	<th scope="col">Status</th>
+    </tr>
+  </thead>
+	<% var i=1;accumulators.forEach(function(accumulator)
+				   {%>
+		<tr>
+		<td><input type="checkbox" name="del[]" value="<%=accumulator._id%>"></td>
+		<td><%=accumulator.username%></td>
+		<td><%=accumulator.name%></td>	
+		<td><%=accumulator.bets.length%></td>
+		<td><%=accumulator.odds.toFixed(2)%></td>
+		<td>GBP <%=accumulator.amount%></td>
+		<td><%=accumulator.status%></td>
+	<td>	<a  href="/admin/accumulators/<%=accumulator._id%>">
+             <i class="fas fa-plus"></i>
+		</a>	</td>
+			
+				
+		<%i++;%>
+	</tr>
+	<%})%>
+  
+    
+</table>
+	 </form>
+</article>
+<%-include("adminfooter.ejs")%>

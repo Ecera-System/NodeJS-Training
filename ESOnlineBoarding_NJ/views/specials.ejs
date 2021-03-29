@@ -1,0 +1,66 @@
+<%-include ("header.ejs")%>
+<style>
+	table {
+		margin-bottom: 20px;
+	}
+
+	span {
+		color: yellow;
+		font-weight: 700;
+	}
+</style>
+
+
+<div class="container">
+	<table class="table table-dark table-striped mt-5">
+		<thead>
+			<tr>
+				<th scope="col">Bet Description</th>
+				<th scope="col">Odds</th>
+
+
+				<th scope="col">Start Time</th>
+
+				<th scope="col">Bet Result</th>
+
+
+
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<% var i=1;specials.forEach(function(special)
+				   { var d = special.time.toDateString();var x = new Date();x.setMinutes(x.getMinutes()+60);var y= x.toDateString();%>
+		<tr>
+			<%var d=new Date();var st;d.setMinutes(d.getMinutes()+3);if(special.time<d&&special.status=="NS"){st="In Play"}else{st=special.status}%>
+			<td><%=special.desc%></td>
+
+			<td><%=special.t1_odds.toFixed(2)%></td>
+
+
+			<td><%if(special.time){%><%=special.time.toString().substring(0,special.time.toString().length-41)%><%}%></td>
+			<td><%var x; if(special.winner==0){x="Ongoing"}else if(special.winner==1){x="Success"}else x="Failed"%><%=x%></td>
+			<td><%var date=new Date();date.setMinutes(date.getMinutes()+3);if(special.time>date){%><a
+					href="/specials/<%=special._id%>/bet"><button class="btn btn-primary btn-sm">Bet Now
+					</button></a><%}%></td>
+<%i++;})%>
+</div>
+</div>
+<!--Start of Tawk.to Script-->
+<!--Start of Tawk.to Script-->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+	var Tawk_API = Tawk_API || {},
+		Tawk_LoadStart = new Date();
+	(function () {
+		var s1 = document.createElement("script"),
+			s0 = document.getElementsByTagName("script")[0];
+		s1.async = true;
+		s1.src = 'https://embed.tawk.to/5f34ca99b7f44f406e947295/default';
+		s1.charset = 'UTF-8';
+		s1.setAttribute('crossorigin', '*');
+		s0.parentNode.insertBefore(s1, s0);
+	})();
+</script>
+<!--End of Tawk.to Script-->
+<!--End of Tawk.to Script-->
+<!--End of Tawk.to Script-->

@@ -1,0 +1,29 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("users").classList.add("active")</script>
+ <article class="content dashboard-page">
+<div class = "container ">
+	<h1 style="text-align:center">
+	Edit User
+</h1>
+<div class ="row r1">
+	<div class = "col-lg-3">
+		<%var x;if(user.isAdmin){x="Yes";}else x="No";%>
+	</div>
+	<div class = " col-lg-6">
+	<form action ="/admin/users/<%=user._id%>?_method=PUT" method = "POST" >
+	<input class = "form-control form-group" type="text" name ="user[fname]" placeholder="First Name" required value="<%=user.fname%>">
+		<input class = "form-control form-group" type="text" name ="user[lname]" placeholder="Last Name" required value="<%=user.lname%>">
+			<input class = "form-control form-group" type="email" name ="user[username]" placeholder="User Email" required value="<%=user.username%>">
+		<input class = "form-control form-group" type="Number" name ="user[balance]" placeholder="User's Wallet Balance (€)" min="0" step="0.01"value="<%=user.balance.toFixed(2)%>">
+	<input class = "form-control form-group" type="text" value="<%=x%>"name = "user[isAdmin]" placeholder = "Admin Status - Yes for Admin Access else No">
+		
+	
+		 <button class ="btn btn-primary btn-block"style="margin-bottom:20px">
+			 Submit
+		</button>
+</form>
+
+	</div></div>
+</div>
+</article>
+<%- include("adminfooter.ejs")%>

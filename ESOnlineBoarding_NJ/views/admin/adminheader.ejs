@@ -1,0 +1,250 @@
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Admin Panel </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <script src="https://kit.fontawesome.com/20192c7fbc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- JS, Popper.js, and jQuery -->
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/vendor.css">
+    <link rel="stylesheet" href="/css/card.css">
+    <script>
+        var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+            {};
+        var themeName = themeSettings.themeName || '';
+        if (themeName) {
+            document.write('<link rel="stylesheet" id="theme-style" href="/css/app-' + themeName + '.css">');
+        }
+        else {
+            document.write('<link rel="stylesheet" id="theme-style" href="/css/app.css">');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="app" id="app">
+            <header class="header">
+                <div class="header-block header-block-collapse d-lg-none d-xl-none">
+                    <button class="collapse-btn" id="sidebar-collapse-btn">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                </div>
+                <div class="header-block header-block-nav">
+                    <ul class="nav-profile">
+                        <li><a href="/">Go to Site</a></li>
+                        <li><a class="dropdown-item" href="/logout">
+                                <i class="fa fa-power-off icon"></i> Logout </a>
+                        </li>
+                        <li class="profile dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                <div class="img"
+                                    style="background-image: url('https://avatars3.githubusercontent.com/u/3959008?v=3&s=40')">
+                                </div>
+                                <span class="name">
+                                    <%=currentUser.username%>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <aside class="sidebar">
+                <div class="sidebar-container">
+                    <div class="sidebar-header">
+                        <div class="brand">
+                            <div class="logo">
+                                <span class="l l1"></span>
+                                <span class="l l2"></span>
+                                <span class="l l3"></span>
+                                <span class="l l4"></span>
+                                <span class="l l5"></span>
+                            </div> Modular Admin
+                        </div>
+                    </div>
+                    <nav class="menu">
+                        <ul class="sidebar-menu metismenu" id="sidebar-menu">
+                            <li id="dashboard">
+                                <a href="/admin">
+                                    <i class="fa fa-home"></i> Dashboard </a>
+                            </li>
+                            <li id="users">
+                                <a href="/admin/users">
+                                    <i class="fas fa-users"></i> Users <i class="fa arrow"></i>
+                                </a>
+
+                            </li>
+                            <li id="categories">
+                                <a href="/admin/categories">
+                                    <i class="fas fa-layer-group"></i> Categories <i class="fa arrow"></i>
+                                </a>
+                            </li>
+                            <li id="leagues">
+                                <a href="/admin/leagues">
+                                    <i class="fas fa-clipboard-list"></i> Competitions <i class="fa arrow"></i>
+                                </a>
+
+                            </li>
+                            <li id="bets">
+                                <a href="/admin/matches">
+                                    <i class="fas fa-cogs"></i> Bets <i class="fa arrow"></i></a>
+                            </li>
+                            <li id="bets">
+                                <a href="/admin/specials">
+                                    <i class="fas fa-star-of-life"></i> Specials <i class="fa arrow"></i></a>
+                            </li>
+
+                            <li id="accumulators">
+                                <a href="/admin/accumulators">
+                                    <i class="fas fa-plus"></i> Accumulators <i class="fa arrow"></i></a>
+                            </li>
+                            <li id="stats">
+                                <a href="/admin/stats">
+                                    <i class="fas fa-receipt"></i> Site Statistics <i class="fa arrow"></i></a>
+                            </li>
+
+                            <li id="wallet">
+                                <a href="">
+                                    <i class="fas fa-wallet"></i> Wallet System <i class="fa arrow"></i></a>
+                                <ul class="sidebar-nav">
+                                    <li>
+                                        <a href="/admin/deposits"> Deposits </a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/withdrawals"> Withdrawals </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- <li>
+                                <a href="/admin/download">Download Settled Bets
+								   </a></li> -->
+                        </ul>
+                    </nav>
+                </div>
+                <footer class="sidebar-footer">
+                    <ul class="sidebar-menu metismenu" id="customize-menu">
+                        <li>
+                            <ul>
+                                <li class="customize">
+                                    <div class="customize-item">
+                                        <div class="row customize-header">
+                                            <div class="col-4">
+                                            </div>
+                                            <div class="col-4">
+                                                <label class="title">fixed</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label class="title">static</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label class="title">Sidebar:</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>
+                                                    <input class="radio" type="radio" name="sidebarPosition"
+                                                        value="sidebar-fixed">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>
+                                                    <input class="radio" type="radio" name="sidebarPosition" value="">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label class="title">Header:</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>
+                                                    <input class="radio" type="radio" name="headerPosition"
+                                                        value="header-fixed">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>
+                                                    <input class="radio" type="radio" name="headerPosition" value="">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label class="title">Footer:</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>
+                                                    <input class="radio" type="radio" name="footerPosition"
+                                                        value="footer-fixed">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-4">
+                                                <label>
+                                                    <input class="radio" type="radio" name="footerPosition" value="">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="customize-item">
+                                        <ul class="customize-colors">
+                                            <li>
+                                                <span class="color-item color-red" data-theme="red"></span>
+                                            </li>
+                                            <li>
+                                                <span class="color-item color-orange" data-theme="orange"></span>
+                                            </li>
+                                            <li>
+                                                <span class="color-item color-green active" data-theme=""></span>
+                                            </li>
+                                            <li>
+                                                <span class="color-item color-seagreen" data-theme="seagreen"></span>
+                                            </li>
+                                            <li>
+                                                <span class="color-item color-blue" data-theme="blue"></span>
+                                            </li>
+                                            <li>
+                                                <span class="color-item color-purple" data-theme="purple"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="">
+                                <i class="fa fa-cog"></i> Customize </a>
+                        </li>
+                    </ul>
+                </footer>
+            </aside>
+            <div class="sidebar-overlay" id="sidebar-overlay"></div>
+            <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+            <div class="mobile-menu-handle"></div>

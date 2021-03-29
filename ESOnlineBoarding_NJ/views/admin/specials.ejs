@@ -1,0 +1,50 @@
+<%- include("adminheader.ejs")%>
+<script>document.getElementById("specials").classList.add("active")</script>
+ <article class="content dashboard-page">
+	 <a href="/admin/specials/add"> <button class="btn btn-success" style="color:white">
+		 Create New Special
+		 </button></a>
+	 <a href="/admin/specials/delete"><button class="btn btn-danger float-right">
+		 Delete Specials
+		 </button></a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Description</th>
+      <th scope="col">Odds</th>
+      <!-- <th scope="col">Odds - Team 1</th>
+		<th scope="col">Odds - Draw</th>
+	<th scope="col">Odds - Team 2</th>
+	 -->
+	<th scope="col">Status</th>
+	
+	<th scope="col">Action</th>
+    </tr>
+  </thead>
+	<% var i=1;specials.forEach(function(special)
+				   {%>
+		<tr>
+		<td><%=i%></td>
+		<td><%=special.desc%></td>
+	
+			<td><%=special.t1_odds%></td>
+		
+		
+			
+			<td><%var x; if(special.winner==0){x="Ongoing"}else if(special.winner==1){x="Won"}else x="Lost"%><%=x%></td>
+			
+			
+			<td><a href="/admin/specials/edit/<%=special._id%>" ><button class="btn btn-primary btn-sm">
+				Edit Special
+				</button></a><a href="/admin/specials/<%=special._id%>/edit" ><button class="btn btn-warning btn-sm">
+				Update Result
+				</button></a>  </td><%i++;%>
+	</tr>
+	<%})%>
+  <tbody>
+    
+  </tbody>
+</table>
+</article>
+<%- include("adminfooter.ejs")%>

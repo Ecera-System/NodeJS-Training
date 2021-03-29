@@ -1,0 +1,21 @@
+<%-include ("header.ejs")%>
+<div class="container" style="width:50%">
+				
+		
+					
+			
+	
+		
+	<div class="list-group">
+		<h1 style="font-family:Open Sans;font-size:20px;text-align:center">
+		COMPETITIONS
+		</h1>
+		<%leagues.forEach(function(league)
+						 {%>
+		<a href="/leagues/<%=league._id%>" class="list-group-item list-group-item-action">
+    <img src="<%if(league.logo){%><%=league.logo%><%}else{%>https://www.nicepng.com/png/detail/213-2135817_download-soccer-ball-vector-clipart-football-clip-art.png<%}%>" style="width:60px; height:50px">  <%=league.name%>
+	<span class="float-right"><%=league.matches.length%> Matches Active</span>		
+  </a>	
+		<%})%>
+  			</div>	
+			

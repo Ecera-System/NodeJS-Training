@@ -1,0 +1,74 @@
+<%-include("header.ejs")%>
+<div class="container">
+	<h3 class="text-center mt-5">
+		Bets in <%=accumulator.name%>
+	</h3>
+	<p class="float-right">
+
+		Accumulator Returns : <span style="color:#66ff00;font-weight:bold"> £
+			<%=(accumulator.amount * accumulator.odds).toFixed(2)%></span>
+
+		<br>
+
+
+		Status : <%if(accumulator.status=="Ongoing"){%><%=accumulator.status%>
+		<%}%>
+		<%if(accumulator.status=="Lost"){%><span style="color:red;font-weight:bold"><%=accumulator.status%></span>
+		<%}%>
+		<%if(accumulator.status=="Won"){%><span style="color:green;font-weight:bold"><%=accumulator.status%></span>
+		<%}%>
+		<%if(accumulator.status=="Void"){%><span style="color:yellow;font-weight:bold"><%=accumulator.status%></span>
+		<%}%>
+	
+	<br>
+	
+		Amount : £ <%=accumulator.amount%>
+
+		<br>
+
+		Odds : <%=accumulator.odds.toFixed(2)%>
+
+		<br></p>
+	<table class="table table-dark table-striped mt-5">
+		<thead>
+			<tr>
+				<th scope="col">Match</th>
+				<th scope="col">Bet Placed on Team</th>
+				<th scope="col">Status</th>
+			</tr>
+		</thead>
+		<%accumulator.bets.forEach(function(bet)
+				   {%><tr>
+			<th scope="col"><%=bet.t1_name%> Vs <%=bet.t2_name%></th>
+			<th scope="col"><%if(bet.betOn==1){%><%=bet.t1_name%><%}else if(bet.betOn==2){%><%=bet.t2_name%><%}else{%>Draw<%}%></th>
+	<%if(bet.result==-1){%>
+			<th scope="col">%>Ongoing</th>
+			<%}%>
+		<%if(bet.result==0){%> <th scope="col" style="color:red">%>Lost</th>
+			<%}%>
+		<%if(bet.result==1){%> <th scope="col" style="color:green">%>Won</th>
+			<%}%>
+		<%if(bet.result==2){%> <th scope="col" style="color:yellow">%>Void</th>
+			<%}%></tr><%})%>
+
+	</table>
+	<p style="font-size:12px">
+		<em>* Results get updated from the home page. Proceed to the home page to refresh wallet balance. <a
+				href="/">Click here</a></em>
+	</p>
+</div>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+	var Tawk_API = Tawk_API || {},
+		Tawk_LoadStart = new Date();
+	(function () {
+		var s1 = document.createElement("script"),
+			s0 = document.getElementsByTagName("script")[0];
+		s1.async = true;
+		s1.src = 'https://embed.tawk.to/5f34ca99b7f44f406e947295/default';
+		s1.charset = 'UTF-8';
+		s1.setAttribute('crossorigin', '*');
+		s0.parentNode.insertBefore(s1, s0);
+	})();
+</script>
+<!--End of Tawk.to Script-->
