@@ -8,6 +8,7 @@ const express = require("express"),
   LocalStrategy = require("passport-local"),
   passportLocalMongoose = require("passport-local-mongoose"),
   User = require("./models/user.js"),
+  Employee = require("./models/employee.js"),
   Category = require("./models/category.js"),
   League = require("./models/league.js"),
   Match = require("./models/match.js"),
@@ -87,6 +88,7 @@ app.use(async function (req, res, next) {
 });
 app.get("/", function (req, res) {
   var user;
+  var employee;
   Match.find(
     {
       isSpecial: false,
@@ -97,54 +99,7 @@ app.get("/", function (req, res) {
           User.findById(req.user._id)
             .populate("bets")
             .exec(async function (err, user) {
-              var accumulators = await Accumulator.find({
-                username: user.username,
-                status: "Ongoing",
-                payment: true,
-              })
-                .populate("bets")
-                .exec(function (err, accumulators) {
-                  accumulators.forEach(function (accumulator) {
-                    var bw = 0,
-                      bl = 0,
-                      totdiv = 1,
-                      bc = 0;
-                    var bc1 = 0;
-                    accumulator.bets.forEach(function (bet) {
-                      if (bet.result == 2) {
-                        bc++;
-                        if (bet.awarded == false) {
-                          bet.awarded = true;
-                          bet.save();
-                          bc1++;
-                          totdiv = totdiv * bet.odds;
-                        }
-                      }
-                      if (bet.result == 1) bw++;
-                      if (bet.result == 0) bl++;
-                    });
-                    if (bl > 0) {
-                      accumulator.odds = accumulator.odds / totdiv;
-                      accumulator.status = "Lost";
-                      accumulator.save();
-                    } else if (bc == accumulator.bets.length) {
-                      accumulator.odds = 1;
-                      accumulator.status = "Void";
-                      accumulator.save();
-                      user.balance += accumulator.amount * accumulator.odds;
-                      user.save();
-                    } else if (bw == accumulator.bets.length - bc) {
-                      accumulator.odds = accumulator.odds / totdiv;
-                      accumulator.status = "Won";
-                      accumulator.save();
-                      user.balance += accumulator.amount * accumulator.odds;
-                      user.save();
-                    } else if (bc1 > 0) {
-                      accumulator.odds = accumulator.odds / totdiv;
-                      accumulator.save();
-                    }
-                  });
-                });
+				
               user.bets.forEach(function (bet) {
                 if (bet.result == 1 && !bet.awarded) {
                   user.balance += bet.odds * bet.amount;

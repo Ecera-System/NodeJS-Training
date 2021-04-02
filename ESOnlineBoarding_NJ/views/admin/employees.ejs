@@ -1,0 +1,42 @@
+<%- include("adminheader.ejs")%>
+    <script>
+        document.getElementById("employee").classList.add("active")
+    </script>
+    <article class="content dashboard-page">
+        <a href="/admin/addEmployee"> <button class="btn btn-success" style="color:white">
+		 Create New User
+		 </button></a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">S.No.</th>
+                    <th scope="col">Employee Email</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Wallet Balance</th>
+                    <th scope="col">Admin Access</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <% var i=1;employees.forEach(function(employee)
+            {%>
+                <tr>
+                <td><%=i%></td>
+                <td><%=employee.username%></td>
+                <td><%=employee.fname%> <%=user.lname%></td>	
+                <td>£<%=employee.balance.toFixed(2)%></td>
+                <td><%=employee.isAdmin%></td>
+                    <td><a href="/admin/employee/<%=employee._id%>/edit" ><button class="btn btn-warning">
+                        Edit
+                        </button></a>  <form style ="display:inline" action = "/admin/employees/<%=employee._id%>?_method=DELETE" method ="POST">
+                    <button class="btn btn-danger btn-xs"onclick="return confirm('Are you sure you want to delete this item?');">
+                        Delete
+                    </button>
+                </form></td><%i++;%>
+            </tr>
+                <%})%>
+                    <tbody>
+
+                    </tbody>
+        </table>
+    </article>
+    <%- include("adminfooter.ejs")%>
