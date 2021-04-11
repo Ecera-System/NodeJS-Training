@@ -627,7 +627,7 @@ router.post("/admin/employees", isAdmin, function(req, res) {
         fname: req.body.fname,
         lname: req.body.lname
     };
-    User.create(newUser, function(err, created) {
+    Employee.create(newUser, function(err, created) {
         res.redirect("/admin/employees");
     })
 })
