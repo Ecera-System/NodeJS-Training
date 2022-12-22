@@ -13,7 +13,7 @@
 				"express": "^4.5.1",
 				"express-session": "^1.0.4",
 				"express-validator": "^6.10.0",
-				"jsonwebtoken": "^8.5.1",
+				"jsonwebtoken": "^9.0.0",
 				"method-override": "^2.0.2",
 				"mongoose": "^3.8.40",
 				"morgan": "^1.0.1",
